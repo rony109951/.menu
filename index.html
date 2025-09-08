@@ -3,38 +3,93 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>الهرم الرابع | روني البحيره</title>
+<title>الرئيسية | الهرم الرابع</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+body {
+  margin:0;
+  font-family: Cairo ,sans-serif;
+  background:#000;
+  color:white;
+  scroll-behavior:smooth;
+}
+body::before {
+  content:"";
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background: radial-gradient(circle at 30% 30%, rgba(255,0,0,0.2), transparent 70%),
+             radial-gradient(circle at 70% 70%, rgba(255,0,0,0.2), transparent 70%),
+             radial-gradient(circle at 50% 50%, rgba(255,0,0,0.15), transparent 60%);
+  z-index:-1;
+  animation: pulse 6s ease-in-out infinite alternate;
+}
+@keyframes pulse {
+  0%{opacity:0.3;transform:scale(1);}
+  50%{opacity:0.7;transform:scale(1.05);}
+  100%{opacity:0.3;transform:scale(1);}
+}
+.counter-container {
+  display:flex;
+  justify-content:center;
+  gap:30px;
+  padding:150px 20px;
+  text-align:center;
+}
+.counter-box {
+  background:#111;
+  padding:30px;
+  border-radius:15px;
+  width:250px;
+}
+.counter-box h3 {margin-bottom:15px;}
+.counter-box p {font-size:2rem; margin:0;}
+</style>
+</head>
+<body>
 
-  body {
-    margin: 0;
-    font-family: 'Cairo', sans-serif;
-    background: #000;
-    color: white;
-    overflow-x: hidden;
-    position: relative;
-    scroll-behavior: smooth;
-  }
+<div class="counter-container">
+  <div class="counter-box">
+    <h3>عدد زوار الموقع</h3>
+    <p id="visitors">0</p>
+  </div>
+  <div class="counter-box">
+    <h3>تقييم الموقع</h3>
+    <p id="siteRate">4084</p>
+  </div>
+  <div class="counter-box">
+    <h3>تواصل مع المطور</h3>
+    <p>01212843252 واتساب</p>
+  </div>
+</div>
 
-  /* خلفية متحركة بإضاءات */
-  body::before {
-    content: "";
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-      radial-gradient(circle at 30% 30%, rgba(255,0,0,0.2), transparent 70%),
-      radial-gradient(circle at 70% 70%, rgba(255,0,0,0.2), transparent 70%),
-      radial-gradient(circle at 50% 50%, rgba(255,0,0,0.15), transparent 60%);
-    z-index: -1;
-    animation: pulse 6s ease-in-out infinite alternate;
-  }
+<script>
+// عدد الزوار يزيد تلقائي ويستمر حتى لو الصفحة انغلقت
+let visitors = localStorage.getItem( visitors ) ? parseInt(localStorage.getItem( visitors )) : 4689;
+const visitorsElement = document.getElementById( visitors );
+visitorsElement.innerText = visitors;
 
-  @keyframes pulse {
-    0%   { opacity: 0.3; transform: scale(1); }
-    50%  { opacity: 0.7; transform: scale(1.05); }
+setInterval(() => {
+  visitors += 2;
+  visitorsElement.innerText = visitors;
+  localStorage.setItem( visitors , visitors);
+}, 2000);
+
+// تقييم الموقع يزيد كل نصف ساعة بمقدار 3
+let siteRate = 4084;
+const siteRateElement = document.getElementById( siteRate );
+siteRateElement.innerText = siteRate;
+
+setInterval(() => {
+  siteRate += 3;
+  siteRateElement.innerText = siteRate;
+}, 1800000); // 30 دقيقة
+</script>
+
+</body>
+</html>
+50%  { opacity: 0.7; transform: scale(1.05); }
     100% { opacity: 0.3; transform: scale(1); }
   }
 
